@@ -23,6 +23,15 @@ API layer built on tf-2.0 for high performance and easy training
 
 
 # References
+## Tensorflow Resources
+- https://www.tensorflow.org/guide/performance/overview
+- https://www.tensorflow.org/beta/guide/effective_tf2
+- https://www.tensorflow.org/tutorials/load_data/tf_records
+- https://github.com/kalaspuffar/tensorflow-data
+- https://www.tensorflow.org/datasets/overview
+- https://www.tensorflow.org/guide/performance/datasets
+- https://www.tensorflow.org/beta/guide/keras/training_and_evaluation
+## Others 
 - https://stackoverflow.com/questions/8161617/how-can-i-specify-library-versions-in-setup-py
 - https://packaging.python.org/discussions/install-requires-vs-requirements/
 

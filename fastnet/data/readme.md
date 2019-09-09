@@ -13,3 +13,5 @@ We use TF-Records and TF Datasets
 ## References
 - https://www.tensorflow.org/guide/performance/datasets
 - https://www.tensorflow.org/beta/guide/effective_tf2
+- https://github.com/tensorflow/models/blob/master/tutorials/image/cifar10_estimator/cifar10.py
+
