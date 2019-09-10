@@ -76,7 +76,6 @@ def read_tfrecord_as_dataset(filename, deserializer, batch_size,
     if shuffle:
         ds = ds.shuffle(shuffle_buffer_size)
     ds = ds.map(deserializer)
-    ds = ds.repeat()
     ds = ds.batch(batch_size)
     return ds
 
@@ -91,14 +90,20 @@ def get_cifar10(dir, batch_size, shuffle=True, shuffle_buffer_size=10000, compre
     test_loc = os.path.join(dir, "cifar10.test.tfrecords")
     cifar10_exists = os.path.exists(train_loc) and os.path.exists(test_loc)
 
-    serializer = lambda x, y: tf.io.serialize_tensor(tf.convert_to_tensor((tf.io.serialize_tensor(x), tf.io.serialize_tensor(y))))
+    def serializer(x,y):
+        x = tf.io.serialize_tensor(x)
+        y = tf.io.serialize_tensor(tf.cast(y, tf.int32))
+        z = tf.convert_to_tensor((x,y))
+        z = tf.io.serialize_tensor(z)
+        return z
 
     def deserializer(x):
         x = tf.io.parse_tensor(x, out_type=tf.string)
         img = x[0]
         label = x[1]
         img = tf.io.parse_tensor(img, out_type=tf.uint8)
-        label = tf.io.parse_tensor(label, out_type=tf.uint8)
+        img = tf.cast(img,tf.float32)
+        label = tf.io.parse_tensor(label, out_type=tf.int32)
         return img, label
 
     if not cifar10_exists:
