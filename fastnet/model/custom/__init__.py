@@ -1,1 +1,1 @@
-from .fnet import FNet
+from .fnet import FNet, ResBlk

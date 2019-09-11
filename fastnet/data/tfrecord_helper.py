@@ -92,7 +92,7 @@ def get_cifar10(dir, batch_size, shuffle=True, shuffle_buffer_size=10000, compre
 
     def serializer(x,y):
         x = tf.io.serialize_tensor(x)
-        y = tf.io.serialize_tensor(tf.cast(y, tf.int32))
+        y = tf.io.serialize_tensor(tf.cast(y, tf.int64))
         z = tf.convert_to_tensor((x,y))
         z = tf.io.serialize_tensor(z)
         return z
@@ -103,7 +103,7 @@ def get_cifar10(dir, batch_size, shuffle=True, shuffle_buffer_size=10000, compre
         label = x[1]
         img = tf.io.parse_tensor(img, out_type=tf.uint8)
         img = tf.cast(img,tf.float32)
-        label = tf.io.parse_tensor(label, out_type=tf.int32)
+        label = tf.io.parse_tensor(label, out_type=tf.int64)
         return img, label
 
     if not cifar10_exists:

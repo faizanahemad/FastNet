@@ -14,6 +14,9 @@ API layer built on tf-2.0 for high performance and easy training
 
 `pip install --upgrade --upgrade-strategy only-if-needed https://github.com/faizanahemad/FastNet/tarball/master`
 
+or for developer mode:
+
+`pip install -e .`
 ### Usage
 
 
@@ -26,11 +29,16 @@ API layer built on tf-2.0 for high performance and easy training
 ## Tensorflow Resources
 - https://www.tensorflow.org/guide/performance/overview
 - https://www.tensorflow.org/beta/guide/effective_tf2
+- https://www.tensorflow.org/beta/guide/data_performance
 - https://www.tensorflow.org/tutorials/load_data/tf_records
 - https://github.com/kalaspuffar/tensorflow-data
 - https://www.tensorflow.org/datasets/overview
 - https://www.tensorflow.org/guide/performance/datasets
 - https://www.tensorflow.org/beta/guide/keras/training_and_evaluation
+
+## Keras
+- https://www.tensorflow.org/beta/guide/keras/overview
+
 ## Others 
 - https://stackoverflow.com/questions/8161617/how-can-i-specify-library-versions-in-setup-py
 - https://packaging.python.org/discussions/install-requires-vs-requirements/

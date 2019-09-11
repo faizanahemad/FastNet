@@ -58,8 +58,8 @@ class ResBlk(tf.keras.Model):
 class FNet(tf.keras.Model):
     def __init__(self, start_kernels=64, weight=0.125, use_depthwise_conv=False,
                  enable_skip=False, enable_pool_before_skip=False,
-                 residual_dropout=0.0, spatial_dropout=0.0):
-        super().__init__()
+                 residual_dropout=0.0, spatial_dropout=0.0,**kwargs):
+        super().__init__(**kwargs)
         c = start_kernels
         pool = tf.keras.layers.MaxPooling2D()
         self.init_conv_bn = ConvBn2D(c, kernel_size=3)
@@ -85,11 +85,9 @@ class FNet(tf.keras.Model):
         self.weight = weight
         self.concat = tf.keras.layers.Concatenate()
 
-    def call(self, x, y):
+    def call(self, x):
         h = self.init_conv_bn(x)
-
         h = self.blk1(h)
-
         if self.enable_skip:
             if self.enable_pool_before_skip:
                 k = self.pool(self.skip(self.avg_pool(h)))
@@ -102,7 +100,4 @@ class FNet(tf.keras.Model):
         if self.enable_skip:
             h = self.concat([h, k])
         h = self.linear(h) * self.weight
-        ce = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=h, labels=y)
-        loss = tf.reduce_sum(ce)
-        correct = tf.reduce_sum(tf.cast(tf.math.equal(tf.argmax(h, axis=1), y), tf.float32))
-        return loss, correct
+        return h

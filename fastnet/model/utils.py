@@ -37,16 +37,11 @@ class ConvBn2D(tf.keras.Model):
         self.spatial_dropout = spatial_dropout
         self.sd = tf.keras.layers.SpatialDropout2D(self.spatial_dropout)
 
-        self.use_bn = False
-        if bn is not None:
-            self.bn = bn(momentum=0.9, epsilon=epsilon)
-            self.use_bn = True
+        assert bn is not None
+        self.bn = bn(momentum=0.9, epsilon=epsilon)
 
     def call(self, inputs):
-        if self.use_bn:
-            res = self.bn(self.conv(inputs))
-        else:
-            res = self.conv(inputs)
+        res = self.bn(self.conv(inputs))
 
         if self.spatial_dropout > 0:
             res = self.sd(res)
