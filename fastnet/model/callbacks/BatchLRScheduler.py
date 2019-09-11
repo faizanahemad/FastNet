@@ -1,4 +1,6 @@
 import tensorflow as tf
+
+
 class BatchLRScheduler(tf.keras.callbacks.Callback):
 
     def __init__(self, lr_schedule, momentum_schedule, batch_size, total_samples, verbose=0):
