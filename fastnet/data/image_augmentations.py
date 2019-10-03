@@ -3,6 +3,8 @@ import numpy as np
 import tensorflow as tf
 import os
 
+from typing import List, Union, Callable
+
 import logging
 logger = logging.getLogger("Image Augmentations")
 logger.setLevel(logging.INFO)
@@ -97,3 +99,8 @@ def combine_transformers(*transformers):
         return tuple(args)
     return wrapper
 
+def get_image_normalizer(mean: Union[List, np.ndarray], std: Union[np.ndarray]) -> Callable:
+    "Returns a function that normalizes a tensor image with given mean, std. Usage same as other transformers"
+    def normalizer(x: tf.Tensor) -> tf.Tensor:
+        return (x-mean)/std
+    return normalizer
